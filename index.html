@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AP CSA Practice Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <h1>AP CSA Practice Portal</h1>
+    <div class="score-display">
+      <span class="score-label">Score:</span>
+      <span id="score">0</span>
+      <span class="score-sep">/</span>
+      <span id="total">0</span>
+    </div>
+  </header>
+
+  <main class="main">
+    <div id="loading" class="loading">
+      <p>Loading questions…</p>
+    </div>
+
+    <div id="quiz" class="quiz hidden">
+      <div class="question-number" id="questionNumber"></div>
+
+      <div class="question-block">
+        <p class="question-text" id="questionText"></p>
+        <pre class="code-block" id="codeBlock"><code id="codeContent"></code></pre>
+      </div>
+
+      <form id="answerForm" class="answer-form">
+        <fieldset class="choices" id="choices">
+          <!-- Choices filled by JS -->
+        </fieldset>
+        <div class="actions">
+          <button type="submit" id="submitBtn" class="btn btn-primary">Submit</button>
+          <button type="button" id="nextBtn" class="btn btn-secondary hidden">Next Question</button>
+        </div>
+      </form>
+
+      <div id="feedback" class="feedback hidden">
+        <p class="feedback-message" id="feedbackMessage"></p>
+        <div class="explanation" id="explanation">
+          <strong>Explanation:</strong>
+          <p id="explanationText"></p>
+        </div>
+      </div>
+    </div>
+
+    <div id="complete" class="complete hidden">
+      <h2>Practice Complete</h2>
+      <p class="final-score" id="finalScore"></p>
+      <button type="button" id="restartBtn" class="btn btn-primary">Try Again</button>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

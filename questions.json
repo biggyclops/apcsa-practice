@@ -1,0 +1,525 @@
+[
+  {
+    "question": "What is printed when the following code runs?",
+    "code": "int x = 5;\nSystem.out.println(x++);",
+    "options": ["4", "5", "6", "Compile error"],
+    "answer": "5",
+    "explanation": "The post-increment operator (x++) returns the value before incrementing. So 5 is printed, and then x becomes 6.",
+    "topic": "Operators"
+  },
+  {
+    "question": "What is the output of this code?",
+    "code": "String s = \"hello\";\nSystem.out.println(s.length());",
+    "options": ["4", "5", "6", "Runtime error"],
+    "answer": "5",
+    "explanation": "The length() method returns the number of characters in the string. \"hello\" has 5 characters.",
+    "topic": "Strings"
+  },
+  {
+    "question": "Which is true about the following loop?",
+    "code": "for (int i = 0; i < 3; i++)\n  System.out.print(i + \" \");",
+    "options": ["Prints: 0 1 2", "Prints: 0 1 2 3", "Prints: 1 2 3", "Infinite loop"],
+    "answer": "Prints: 0 1 2",
+    "explanation": "The loop runs while i < 3. i takes values 0, 1, 2, then when i becomes 3 the condition fails and the loop ends. So 0 1 2 is printed.",
+    "topic": "Loops"
+  },
+  {
+    "question": "What does this code output?",
+    "code": "int[] arr = {10, 20, 30};\nSystem.out.println(arr[1]);",
+    "options": ["10", "20", "30", "ArrayIndexOutOfBoundsException"],
+    "answer": "20",
+    "explanation": "Array indices start at 0. arr[0] is 10, arr[1] is 20, arr[2] is 30. So 20 is printed.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "What is the value of result after this code runs?",
+    "code": "int a = 7;\nint b = 3;\nint result = a % b;",
+    "options": ["0", "1", "2", "2.33"],
+    "answer": "1",
+    "explanation": "The % operator is modulus (remainder). 7 divided by 3 is 2 with remainder 1, so 7 % 3 = 1.",
+    "topic": "Operators"
+  },
+  {
+    "question": "Consider the addNum method. The code segment is intended to set the contents of array2 to {0, 13, 9, 0}. Which can replace /* missing initialization */ so that the code segment works as expected?",
+    "code": "public static int[] addNum(int[] array, int first, int second, int num)\n{\n  int[] newArray = new int[array.length];\n  newArray[first] = array[first] + num;\n  newArray[second] = array[second] + num;\n  return newArray;\n}\n\nint[] array1 = /* missing initialization */;\nint[] array2 = addNum(array1, 1, 2, 5);",
+    "options": ["{8, 4}", "{18, 14}", "{5, 8, 4, 5}", "{5, 18, 14, 5}"],
+    "answer": "{5, 8, 4, 5}",
+    "explanation": "When newArray is declared in addNum, all its elements are initialized to 0. The method sets newArray[1] to array[1] + 5 (13) and newArray[2] to array[2] + 5 (9). So array1 must have four elements with array1[1]=8 and array1[2]=4.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "What, if anything, is printed as a result of executing the code segment?",
+    "code": "int[] arr = {4, 3, 2, 1, 0};\nint total = 0;\nfor (int k = 0; k <= total; k++)\n{\n  if (arr[k] % 2 == 0)\n    total += arr[k];\n  else\n    total -= arr[k];\n}\nSystem.out.print(total);",
+    "options": ["2", "1", "0", "Nothing is printed because the code segment causes a runtime error."],
+    "answer": "1",
+    "explanation": "First iteration: arr[0]%2==0 is true, total becomes 4. Second iteration: arr[1]%2==0 is false, total becomes 1. Then k<=total is 2<=1, false, so the loop ends. The value 1 is printed.",
+    "topic": "Loops"
+  },
+  {
+    "question": "The code segment is intended to print the number of strings in the array animals that have str as a substring. It does not work as intended. Which change should be made?",
+    "code": "String[] animals = {\"horse\", \"cow\", \"goat\", \"dog\", \"cat\", \"mouse\"};\nint count = 0;\nfor (int i = 0; i <= animals.length; i++)\n{\n  if (animals[i].indexOf(str) >= 0)\n    count++;\n}\nSystem.out.println(count);",
+    "options": [
+      "Change the for loop condition to i < animals.length.",
+      "Change the for loop condition to i < animals.length - 1.",
+      "Change the for loop condition to i < animals[i].length.",
+      "Change the if condition to animals[i].equals(str)."
+    ],
+    "answer": "Change the for loop condition to i < animals.length.",
+    "explanation": "Using i <= animals.length causes an ArrayIndexOutOfBoundsException because valid indices are 0 to length-1. The condition should be i < animals.length.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "The code segment prints the year each Toy in toyArray was first sold. Which could be used in place of the given code segment to produce the same output? I: for loop with getYearFirstSold(k). II: for loop with k.getYearFirstSold(). III: for loop with toyArray[k].getYearFirstSold().",
+    "code": "for (Toy k : toyArray)\n  System.out.println(k.getYearFirstSold());",
+    "options": ["II only", "III only", "I and II", "II and III"],
+    "answer": "III only",
+    "explanation": "I uses k as a parameter to getYearFirstSold instead of as an array index. II uses k as an object reference instead of an index. III correctly uses k as the index and toyArray[k] as the Toy reference.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "After executing the code segment, arr should contain {1, 0, 1, 0}. Which can replace /* missing code */ so that the segment works as intended? I. int[] arr = {0, 0, 0, 0}; II. int[] arr = new int[0]; III. int[] arr = new int[4];",
+    "code": "public int[] transform(int[] a)\n{\n  a[0]++;\n  a[2]++;\n  return a;\n}\n\n/* missing code */\narr = transform(arr);",
+    "options": ["I only", "III only", "I and II", "I and III"],
+    "answer": "I and III",
+    "explanation": "transform increases the first and third elements by 1. The array must start as {0,0,0,0}. I uses an initializer list; III creates length-4 with default 0. II creates length 0 and does not work.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "Consider BoundedIntArray: user can specify size (indices 0 to size-1) or size and low (indices low to low+size-1). After the statements below, which best describes arr1 and arr2?",
+    "code": "BoundedIntArray arr1 = new BoundedIntArray(100, 5);\nBoundedIntArray arr2 = new BoundedIntArray(100);",
+    "options": [
+      "arr1 and arr2 both represent lists indexed from 0 to 99.",
+      "arr1 is indexed 0 to 104, arr2 is 0 to 99.",
+      "arr1 is indexed 5 to 99, arr2 is 0 to 99.",
+      "arr1 is indexed 5 to 104, arr2 is 0 to 99."
+    ],
+    "answer": "arr1 is indexed 5 to 104, arr2 is 0 to 99.",
+    "explanation": "With (size, low), indices range from low to low+size-1. So arr1: 5 to 5+99=104. arr2 uses default low=0, so 0 to 99.",
+    "topic": "Classes and Objects"
+  },
+  {
+    "question": "Why are myItems and myLowIndex in BoundedIntArray declared private rather than public?",
+    "code": "public class BoundedIntArray {\n  private int[] myItems;\n  private int myLowIndex;\n  // constructors and methods\n}",
+    "options": [
+      "This permits BoundedIntArray objects to be initialized and modified.",
+      "This helps prevent clients from writing code that would need to change if the implementation changed.",
+      "This prevents compile-time errors when public methods access the private fields.",
+      "This prevents run-time errors when public methods access the private fields."
+    ],
+    "answer": "This helps prevent clients from writing code that would need to change if the implementation changed.",
+    "explanation": "Encapsulation (private fields) hides implementation details so client code does not depend on them; if the implementation changes, client code does not need to be modified.",
+    "topic": "Encapsulation"
+  },
+  {
+    "question": "Which represents the contents of arr after the code segment has been executed?",
+    "code": "int[] arr = {10, 20, 30, 40, 50};\nfor (int x = 1; x < arr.length - 1; x++)\n  arr[x + 1] = arr[x] + arr[x + 1];",
+    "options": ["{10, 20, 50, 90, 50}", "{10, 20, 50, 90, 140}", "{10, 30, 60, 100, 50}", "{10, 30, 60, 100, 150}"],
+    "answer": "{10, 20, 50, 90, 140}",
+    "explanation": "The loop sets arr[2]=20+30=50, arr[3]=50+40=90, arr[4]=90+50=140. Elements at 0 and 1 are unchanged.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "What is printed as a result of the call start()?",
+    "code": "public void changeIt(int[] list, int num)\n{\n  list = new int[5];\n  num = 0;\n  for (int x = 0; x < list.length; x++)\n    list[x] = 0;\n}\npublic void start()\n{\n  int[] nums = {1, 2, 3, 4, 5};\n  int value = 6;\n  changeIt(nums, value);\n  for (int k = 0; k < nums.length; k++)\n    System.out.print(nums[k] + \" \");\n  System.out.print(value);\n}",
+    "options": ["0 0 0 0 0 0", "0 0 0 0 0 6", "1 2 3 4 5 6", "changeIt will throw an exception."],
+    "answer": "1 2 3 4 5 6",
+    "explanation": "changeIt reassigns the local reference list to a new array and sets num to 0; it does not modify the original nums array or the variable value in start. So nums stays {1,2,3,4,5} and value stays 6.",
+    "topic": "Methods"
+  },
+  {
+    "question": "Which best describes the behavior of code segment I and code segment II?",
+    "code": "I: int[] arr = {1,2,3,4,5}; for (int x=0; x<arr.length; x++) System.out.print(arr[x+3]);\nII: int[] arr = {1,2,3,4,5}; for (int x : arr) System.out.print(x+3);",
+    "options": [
+      "Both print 45678.",
+      "I causes ArrayIndexOutOfBoundsException, II prints 45.",
+      "I causes ArrayIndexOutOfBoundsException, II prints 45678.",
+      "Both cause ArrayIndexOutOfBoundsException."
+    ],
+    "answer": "I causes ArrayIndexOutOfBoundsException, II prints 45678.",
+    "explanation": "In I, when x is 2, arr[5] is accessed and indices are 0–4. In II, x takes values 1,2,3,4,5 and x+3 prints 4,5,6,7,8.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "A shuffle method should return a new array with elements from nums in a different order, alternating nums[0]…nums[n/2-1] with nums[n/2]…nums[n-1]. The implementation does not work as intended. Which best describes the problem?",
+    "code": "",
+    "options": [
+      "Executing shuffle may cause an ArrayIndexOutOfBoundsException.",
+      "The last element of the returned array (result[result.length-1]) may not have the correct value.",
+      "One or more of nums[0]…nums[nums.length/2-1] may have been copied to the wrong position(s) in the returned array.",
+      "One or more of nums[nums.length/2]…nums[nums.length-1] may have been copied to the wrong position(s) in the returned array."
+    ],
+    "answer": "One or more of nums[nums.length/2]…nums[nums.length-1] may have been copied to the wrong position(s) in the returned array.",
+    "explanation": "In a typical alternating shuffle, the second half elements are often placed at odd indices; an off-by-one or wrong index when copying the second half causes them to appear in wrong positions.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "What are the contents of arr after executing this code segment?",
+    "code": "int[] arr = {10, 20, 30, 40, 50, 60};\nfor (int j = arr.length - 1; j >= 0; j -= 2)\n  arr[j]++;",
+    "options": ["{10, 20, 31, 40, 51, 60}", "{10, 21, 30, 41, 50, 61}", "{11, 20, 31, 40, 51, 60}", "{11, 21, 31, 41, 51, 61}"],
+    "answer": "{10, 21, 30, 41, 50, 61}",
+    "explanation": "The loop runs with j = 5, 3, 1. So arr[5], arr[3], and arr[1] are each incremented by 1, giving 61, 41, 21.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "Which of the following code segments compile without error? I. checkString(new String[]); II. checkString(new String[0]); III. String[] str = {\"cat\",\"dog\"}; checkString(str);",
+    "code": "public static int checkString(String[] arr)\n{\n  int count = 0;\n  for (int k = 0; k < arr.length; k++)\n    if (arr[k].length() >= 3) count++;\n  return count;\n}",
+    "options": ["III only", "I and III only", "II and III only", "I, II, and III"],
+    "answer": "II and III only",
+    "explanation": "Array size must be specified when created. I is missing the size. II creates a valid length-0 array. III uses an initializer list and compiles.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "findMaxValue does not always work as intended. Which change fixes it?",
+    "code": "public int findMaxValue(int[] ranges)\n{\n  int max = 0;  // line 4\n  for (int value : ranges)\n  {\n    if (value > max)  // line 7\n      max = value;    // line 9\n  }\n  return max;\n}",
+    "options": [
+      "Change line 4 to int max = ranges[0];",
+      "Change line 4 to int max = Integer.MAX_VALUE;",
+      "Change line 7 to if (value < max)",
+      "Change line 9 to value = max;"
+    ],
+    "answer": "Change line 4 to int max = ranges[0];",
+    "explanation": "If all values are negative, max stays 0 and the method returns 0 incorrectly. Initializing max to the first element ensures the maximum is compared against actual array values.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "The code segment is intended to set nums to {3, 1, 0, 2}. Why does it not work as intended?",
+    "code": "int[] nums = new int[3];\nnums[1] = 0;\nnums[1] = 1;\nnums[0] = 3;\nnums.length++;\nnums[3] = 2;",
+    "options": [
+      "The assignment statements are in the wrong order.",
+      "The size of the array cannot be changed once the array is created.",
+      "The element nums[1] is assigned two different values.",
+      "The element nums[2] is never set to 0."
+    ],
+    "answer": "The size of the array cannot be changed once the array is created.",
+    "explanation": "nums.length is final; nums.length++ does not compile. Array length is fixed at creation time.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "Which code segment will cause myArray to contain {0, 5, 0, 0}?",
+    "code": "public void changeIt(int[] arr, int index, int newValue)\n{\n  arr[index] += newValue;\n}",
+    "options": [
+      "int[] myArray = new int[4]; changeIt(myArray, 1, 5);",
+      "int[] myArray = new int[4]; changeIt(myArray, 2, 5);",
+      "int[] myArray = new int[5]; changeIt(myArray, 1, 4);",
+      "int[] myArray = new int[5]; changeIt(myArray, 1, 5);"
+    ],
+    "answer": "int[] myArray = new int[4]; changeIt(myArray, 1, 5);",
+    "explanation": "new int[4] gives {0,0,0,0}. changeIt adds 5 to the element at index 1, so the array becomes {0, 5, 0, 0}.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "countTarget may not work as intended. Which change to line 4 fixes it?",
+    "code": "public int countTarget(int[] arr, int target)\n{\n  int count = 0;\n  for (int j = 0; j <= arr.length; j++)  // line 4\n  {\n    if (arr[j] == target) count++;\n  }\n  return count;\n}",
+    "options": [
+      "Change j <= arr.length to j < arr.length",
+      "Change j <= arr.length to j < arr.length - 1",
+      "Change j <= arr.length to j < arr.length + 1",
+      "No change is necessary."
+    ],
+    "answer": "Change j <= arr.length to j < arr.length",
+    "explanation": "Valid indices are 0 to arr.length-1. Using j <= arr.length allows j = arr.length, causing ArrayIndexOutOfBoundsException.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "The code is intended to fill fibs with the first ten Fibonacci numbers. Why does it not work as intended?",
+    "code": "int[] fibs = new int[10];\nfibs[0] = 1;\nfibs[1] = 1;\nfor (int j = 1; j < fibs.length; j++)\n  fibs[j] = fibs[j - 2] + fibs[j - 1];",
+    "options": [
+      "The initial value of j should be 0.",
+      "The initial value of j should be 2.",
+      "The condition should be j < fibs.length - 1.",
+      "The condition should be j < fibs.length + 1."
+    ],
+    "answer": "The initial value of j should be 2.",
+    "explanation": "When j is 1, fibs[j-2] is fibs[-1], which causes ArrayIndexOutOfBoundsException. Starting at j=2 uses fibs[0] and fibs[1] which are already set.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "Which best describes the behavior of the code segment?",
+    "code": "int[] arr1 = {2, 4, 6, 8, 10};\nint num = 0;\nfor (int val : arr1)\n  num += 10;",
+    "options": [
+      "The loop adds 10 to each element in arr1.",
+      "The loop adds 10 to num once for each element in arr1.",
+      "The loop adds the value of each element in arr1 to num.",
+      "The loop does not change num because it uses an enhanced for loop."
+    ],
+    "answer": "The loop adds 10 to num once for each element in arr1.",
+    "explanation": "The enhanced for loop iterates five times. Each time, 10 is added to num, so num becomes 50. The loop variable val is not used.",
+    "topic": "Loops"
+  },
+  {
+    "question": "Which code segment will produce the same output as the given code segment?",
+    "code": "int sum = 0;\nfor (int n : arr)\n  sum = sum + 2 * n;\nSystem.out.print(sum);",
+    "options": [
+      "int sum = 0; for (int k=0; k<arr.length; k++) sum = sum + 2*k; System.out.print(sum);",
+      "int sum = 0; for (int k=0; k<=arr.length; k++) sum = sum + 2*k; System.out.print(sum);",
+      "int sum = 0; for (int k=0; k<arr.length; k++) sum = sum + 2*arr[k]; System.out.print(sum);",
+      "int sum = arr[0]; for (int k=1; k<=arr.length; k++) sum = sum + 2*arr[k]; System.out.print(sum);"
+    ],
+    "answer": "int sum = 0; for (int k=0; k<arr.length; k++) sum = sum + 2*arr[k]; System.out.print(sum);",
+    "explanation": "The original sums 2*n for each element n in arr. Only the option that uses 2*arr[k] for k from 0 to length-1 is equivalent.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "Which can replace /* missing code */ so that the code segment sets the contents of the array to {0, 1, 2}?",
+    "code": "/* missing code */\nsequence[1] = 1;\nsequence[2] = 2;",
+    "options": ["int[] sequence;", "int[] sequence = new int[1];", "int[] sequence = new int[2];", "int[] sequence = new int[3];"],
+    "answer": "int[] sequence = new int[3];",
+    "explanation": "An array of length 3 has indices 0, 1, 2 and default values {0,0,0}. Setting sequence[1]=1 and sequence[2]=2 gives {0, 1, 2}.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "What are the contents of numArr after executing this code segment?",
+    "code": "public static void updateArr(int[] arr, int val)\n{\n  arr[val] = val;\n}\n\nint[] numArr = new int[4];\nupdateArr(numArr, 1);\nupdateArr(numArr, 3);",
+    "options": ["{0, 0, 0, 0}", "{0, 1, 0, 3}", "{1, 0, 3, 0}", "{1, 3, 0, 0}"],
+    "answer": "{0, 1, 0, 3}",
+    "explanation": "numArr starts as {0,0,0,0}. updateArr(numArr,1) sets arr[1]=1. updateArr(numArr,3) sets arr[3]=3. So the result is {0, 1, 0, 3}.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "Which code segment correctly interchanges the value of arr[0] and arr[5]?",
+    "code": "int[] arr = new int[10];  // initialized",
+    "options": [
+      "arr[0] = 5; arr[5] = 0;",
+      "arr[0] = arr[5]; arr[5] = arr[0];",
+      "int k = arr[5]; arr[0] = arr[5]; arr[5] = k;",
+      "int k = arr[0]; arr[0] = arr[5]; arr[5] = k;"
+    ],
+    "answer": "int k = arr[0]; arr[0] = arr[5]; arr[5] = k;",
+    "explanation": "To swap two values you must use a temporary variable. Saving arr[0] in k, then assigning arr[5] to arr[0] and k to arr[5] correctly swaps them.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "maxHelper is intended to return the largest value among the first numVals values in the array; it does not work as intended. Under which conditions does maxHelper fail?",
+    "code": "private int[] nums;\n// precondition: 0 < numVals <= nums.length\nprivate int maxHelper(int numVals)\n{\n  Line 1: int max = maxHelper(numVals - 1);\n  Line 2: if (max > nums[numVals - 1])\n    return max;\n  else\n    return nums[numVals - 1];\n}",
+    "options": [
+      "When numVals is 1",
+      "When the elements of nums are in nonincreasing order",
+      "When the elements of nums are in nondecreasing order",
+      "Method maxHelper never works as intended."
+    ],
+    "answer": "When numVals is 1",
+    "explanation": "When numVals is 1, the method calls maxHelper(0), which has no base case and leads to infinite recursion or incorrect behavior. There must be a base case for numVals == 1 that returns nums[0].",
+    "topic": "Recursion"
+  },
+  {
+    "question": "Which corrects maxHelper so that it works as intended?",
+    "code": "private int[] nums;\n// precondition: 0 < numVals <= nums.length\nprivate int maxHelper(int numVals)\n{\n  Line 1: int max = maxHelper(numVals - 1);\n  Line 2: if (max > nums[numVals - 1])\n    return max;\n  else\n    return nums[numVals - 1];\n}",
+    "options": [
+      "Insert before Line 1: if (numVals == 0) return numVals;",
+      "Insert before Line 1: if (numVals == 1) return nums[0];",
+      "Insert between Line 1 and Line 2: if (numVals == 0) return numVals;",
+      "Insert between Line 1 and Line 2: if (numVals == 1) return nums[0];"
+    ],
+    "answer": "Insert between Line 1 and Line 2: if (numVals == 1) return nums[0];",
+    "explanation": "The base case must be numVals == 1, returning nums[0]. It must appear after the recursive call (or before Line 1) so that we do not call maxHelper(0). Inserting between Line 1 and Line 2 provides the base case before using the recursive result.",
+    "topic": "Recursion"
+  },
+  {
+    "question": "Which represents the contents of the array arr after the code segment is executed?",
+    "code": "int[] arr = {1, 2, 3, 4, 5, 6, 7};\nfor (int i = 1; i < arr.length; i += 2)\n  arr[i] = arr[i - 1];",
+    "options": ["{0, 1, 2, 3, 4, 5, 6}", "{1, 1, 1, 1, 1, 1, 1}", "{1, 1, 3, 3, 5, 5, 7}", "{1, 2, 3, 4, 5, 6, 7}"],
+    "answer": "{1, 1, 3, 3, 5, 5, 7}",
+    "explanation": "i takes values 1, 3, 5. So arr[1]=arr[0]=1, arr[3]=arr[2]=3, arr[5]=arr[4]=5. The rest are unchanged.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "What value is returned as a result of the call mystery(nums)? nums = {3, 6, 1, 0, 1, 4, 2}",
+    "code": "public static int mystery(int[] arr)\n{\n  int x = 0;\n  for (int k = 0; k < arr.length; k = k + 2)\n    x = x + arr[k];\n  return x;\n}",
+    "options": ["5", "7", "10", "17"],
+    "answer": "7",
+    "explanation": "k takes values 0, 2, 4, 6. x = arr[0]+arr[2]+arr[4]+arr[6] = 3+1+1+2 = 7.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "What value is returned as a result of the call mystery(4)?",
+    "code": "public static int mystery(int value)\n{\n  int sum = 0;\n  int[] arr = {1, 4, 2, 5, 10, 3, 6, 4};\n  for (int item : arr)\n    if (item > value) sum += item;\n  return sum;\n}",
+    "options": ["6", "15", "21", "29"],
+    "answer": "21",
+    "explanation": "Elements greater than 4 are 5, 10, and 6. Their sum is 5+10+6 = 21.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "What is printed as a result of executing the code segment? arr = {4, 14, 15, 3, 14, 18, 19}",
+    "code": "public static int mystery(int[] arr)\n{\n  int count = 0;\n  int curr = arr[arr.length - 1];\n  for (int value : arr)\n  {\n    if (value > curr) count = count + 1;\n    else count = count - 1;\n    curr = value;\n  }\n  return count;\n}\nSystem.out.println(mystery(arr));",
+    "options": ["-7", "-6", "3", "5"],
+    "answer": "3",
+    "explanation": "Each element is compared to the previous (curr). Count increases when value > curr and decreases otherwise. There are 5 increments (14>4, 15>14, 14>3, 18>14, 19>18) and 2 decrements, so count = 5-2 = 3.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "How many calls to mystery (including the initial call) are made as a result of mystery(arr, 0, arr.length-1, 14) if arr = {11, 13, 25, 26, 29, 30, 31, 32}?",
+    "code": "public static int mystery(int[] arr, int low, int high, int num)\n{\n  int mid = (low + high) / 2;\n  if (low > high) return low;\n  else if (arr[mid] < num) return mystery(arr, mid + 1, high, num);\n  else if (arr[mid] > num) return mystery(arr, low, mid - 1, num);\n  else return mid;\n}",
+    "options": ["2", "4", "7", "8"],
+    "answer": "4",
+    "explanation": "Searching for 14: mid=3, arr[3]=26>14 → (0,2,14); mid=1, arr[1]=13<14 → (2,2,14); mid=2, arr[2]=25>14 → (2,1,14); low>high return. So 4 calls including the initial call.",
+    "topic": "Recursion"
+  },
+  {
+    "question": "Which change can be made so that the code segment works as intended? (Set names to {\"Ana\", \"Billy\", \"Cathy\", \"Darius\"})",
+    "code": "String[] names = new String[3];\nnames[0] = \"Ana\";\nnames[1] = \"Billy\";\nnames[2] = \"Cathy\";\nnames[3] = \"Darius\";",
+    "options": [
+      "Change line 1 to String[] names = new String[4];",
+      "Change line 1 to String[] names = new names[3];",
+      "Change line 5 to names[2] = \"Darius\";",
+      "Removing line 5"
+    ],
+    "answer": "Change line 1 to String[] names = new String[4];",
+    "explanation": "The array has length 3 (indices 0–2). Assigning to names[3] causes ArrayIndexOutOfBoundsException. Creating length 4 allows all four names.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "Which represents the contents of the array numbers after the code segment is executed?",
+    "code": "int[] numbers = new int[5];\nnumbers[0] = 2;\nnumbers[1] = numbers[0] + 1;\nnumbers[numbers[0]] = numbers[1];\nfor (int x = 3; x < numbers.length; x++)\n  numbers[x] = numbers[x - 1] * 2;",
+    "options": ["{2, 3, 0, 0, 0}", "{2, 3, 1, 2, 4}", "{2, 3, 3, 6, 9}", "{2, 3, 3, 6, 12}"],
+    "answer": "{2, 3, 3, 6, 12}",
+    "explanation": "After first three assignments: numbers is {2, 3, 3, 0, 0}. Loop: numbers[3]=6, numbers[4]=12. Result: {2, 3, 3, 6, 12}.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "Which code segment will print the value 70?",
+    "code": "public static int getValue(int[] data, int j, int k)\n{\n  return data[j] + data[k];\n}",
+    "options": [
+      "int[] arr = {40, 30, 20, 10, 0}; System.out.println(getValue(arr, 1, 2));",
+      "int[] arr = {50, 40, 30, 20, 10}; System.out.println(getValue(arr, 1, 2));",
+      "int arr = {40, 30, 20, 10, 0}; System.out.println(getValue(arr, 2, 1));",
+      "int arr = {50, 40, 30, 20, 10}; System.out.println(getValue(arr, 2, 1));"
+    ],
+    "answer": "int[] arr = {50, 40, 30, 20, 10}; System.out.println(getValue(arr, 1, 2));",
+    "explanation": "getValue returns data[1]+data[2]. For arr = {50,40,30,20,10}, that is 40+30 = 70. The other options use wrong types or indices.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "Which represents the contents of arr after the code segment has been executed?",
+    "code": "int[] arr = {1, 2, 3, 4, 5};\narr[1] = 4;\narr[3] = 2;",
+    "options": ["{1, 2, 3, 4, 1}", "{1, 3, 3, 1, 5}", "{1, 4, 3, 2, 5}", "{4, 2, 2, 4, 5}"],
+    "answer": "{1, 4, 3, 2, 5}",
+    "explanation": "arr[1] is set to 4 and arr[3] is set to 2. Other elements are unchanged.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "Which best describes the value returned by mystery(nums, v, nums.length)?",
+    "code": "public static int mystery(int[] nums, int v, int numVals)\n{\n  if (numVals == 0) return 0;\n  else if (v == nums[numVals - 1])\n    return 1 + mystery(nums, v, numVals - 1);\n  else\n    return mystery(nums, v, numVals - 1);\n}",
+    "options": [
+      "The value 1 is returned.",
+      "The number of times that v occurs in nums is returned.",
+      "The number of times that numVals occurs in nums is returned.",
+      "Nothing is returned; a runtime error occurs due to infinite recursion."
+    ],
+    "answer": "The number of times that v occurs in nums is returned.",
+    "explanation": "The method recursively counts how many of the first numVals elements equal v. With numVals = nums.length, it counts all occurrences of v in nums.",
+    "topic": "Recursion"
+  },
+  {
+    "question": "Which best describes the behavior of lines 2 and 3 in the code segment?",
+    "code": "int[] scores = {85, 92, 78, 90, 88};\nscores[1] *= 2;   // Line 2\nscores[2] += 10;  // Line 3",
+    "options": [
+      "Line 2 doubles the first element, line 3 adds 10 to the second.",
+      "Line 2 doubles the second element, line 3 adds 10 to the third.",
+      "Line 2 doubles the third element, line 3 adds 10 to the fourth.",
+      "Lines 2 and 3 do not change the contents of the array."
+    ],
+    "answer": "Line 2 doubles the second element, line 3 adds 10 to the third.",
+    "explanation": "scores[1] is the second element (92); scores[2] is the third (78). So line 2 doubles the second, line 3 adds 10 to the third.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "selectSort does not always work as intended. Which change should be made?",
+    "code": "public static void selectSort(int[] numbers)\n{\n  for (int j = 0; j < numbers.length - 1; j++)  // Line 1\n  {\n    int pos = 0;   // Line 2\n    for (int k = j + 1; k < numbers.length; k++)  // Line 3\n      if (numbers[k] < numbers[pos])  // Line 4\n        pos = k;  // Line 5\n    temp = numbers[j]; numbers[j] = numbers[pos]; numbers[pos] = temp;\n  }\n}",
+    "options": [
+      "Line 1: j < numbers.length - 2",
+      "Line 2: int pos = j;",
+      "Line 3: k = 0; k < numbers.length",
+      "Line 4: numbers[k] > numbers[pos]"
+    ],
+    "answer": "Line 2: int pos = j;",
+    "explanation": "pos should be the index of the minimum in the unsorted portion starting at j. Initializing pos to 0 is wrong when j > 0; it should be pos = j.",
+    "topic": "Sorting"
+  },
+  {
+    "question": "Which could be used to replace /* missing code */ so that the code segment sorts arr in increasing order?",
+    "code": "for (j = arr.length - 1; j > 0; j--)\n{\n  int pos = j;\n  for ( /* missing code */ )\n    if (arr[k] > arr[pos]) pos = k;\n  swap(arr, j, pos);\n}",
+    "options": ["k = j - 1; k > 0; k--", "k = j - 1; k >= 0; k--", "k = 1; k < arr.length; k++", "k = 0; k <= arr.length; k++"],
+    "answer": "k = j - 1; k >= 0; k--",
+    "explanation": "To find the maximum in the range [0..j], we traverse from j-1 down to 0. So k = j-1; k >= 0; k-- is correct.",
+    "topic": "Sorting"
+  },
+  {
+    "question": "Assume arr = {\"Ann\", \"Mike\", \"Walt\", \"Lisa\", \"Shari\", \"Jose\", \"Mary\", \"Bill\"}. What is the intermediate value of arr after two iterations of the outer for loop in the call sort(arr)?",
+    "code": "public static void sort(String[] arr)\n{\n  for (int pass = arr.length - 1; pass >= 1; pass--)\n  {\n    String large = arr[0];\n    int index = 0;\n    for (int k = 0; k <= pass; k++)\n      if (arr[k].compareTo(large) > 0) { large = arr[k]; index = k; }\n    arr[index] = arr[pass];\n    arr[pass] = large;\n  }\n}",
+    "options": [
+      "\"Ann\" \"Mike\" \"Walt\" \"Lisa\" \"Shari\" \"Jose\" \"Mary\" \"Bill\"",
+      "\"Ann\" \"Mike\" \"Lisa\" \"Shari\" \"Jose\" \"Mary\" \"Bill\" \"Walt\"",
+      "\"Ann\" \"Bill\" \"Jose\" \"Lisa\" \"Mary\" \"Mike\" \"Shari\" \"Walt\"",
+      "\"Ann\" \"Mike\" \"Bill\" \"Lisa\" \"Mary\" \"Jose\" \"Shari\" \"Walt\""
+    ],
+    "answer": "\"Ann\" \"Mike\" \"Lisa\" \"Shari\" \"Jose\" \"Mary\" \"Bill\" \"Walt\"",
+    "explanation": "Each outer iteration finds the largest in indices 0..pass and swaps it to arr[pass]. First iteration: Walt moves to index 7. Second iteration: Bill moves to index 6. Result: \"Ann\" \"Mike\" \"Lisa\" \"Shari\" \"Jose\" \"Mary\" \"Bill\" \"Walt\".",
+    "topic": "Sorting"
+  },
+  {
+    "question": "Which change can be made so that the code segment works as intended? (minArray should hold the lesser of corresponding elements; arr1 unchanged.)",
+    "code": "for (int c = 0; c < arr1.length; c++)\n{\n  if (arr1[c] < minArray[c])\n    arr1[c] = minArray[c];\n  else\n    minArray[c] = arr1[c];\n}",
+    "options": [
+      "Change the relational operator in the if to >",
+      "Removing lines 5 through 8",
+      "Swapping the positions of line 5 and line 9",
+      "Removing lines 7 through 10"
+    ],
+    "answer": "Removing lines 5 through 8",
+    "explanation": "Line 5 incorrectly modifies arr1 when arr1[c] < minArray[c]; arr1 should remain unchanged. Removing lines 5 through 8 removes that assignment. Per the scoring guide, this allows the code to store the smaller of each pair in minArray as intended.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "What is the value of result after executing this code segment?",
+    "code": "String[] colors = {\"red\", \"green\", \"orange\", \"black\", \"yellow\", \"brown\"};\nint result = -1;\nfor (int j = 0; j < colors.length; j++)\n  for (int k = j + 1; k < colors.length; k++)\n    if (colors[j].length() == colors[k].length())\n      result = k;",
+    "options": ["-1", "3", "4", "5"],
+    "answer": "5",
+    "explanation": "The code compares each pair and when two strings have the same length, result is set to k (the later index). The last such pair is \"black\" (5) and \"brown\" (5); result is set to 5.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "Which code segment(s) will cause an ArrayIndexOutOfBoundsException? I. for (int i=0; i<=fruits.length; i++) ... fruits[i] II. for (int i=0; i<=fruits.length-1; i++) ... fruits[i] III. for (int i=1; i<=fruits.length; i++) ... fruits[i-1]",
+    "code": "String[] fruits = {\"apples\", \"bananas\", \"cherries\", \"dates\"};",
+    "options": ["I only", "II only", "I and III only", "II and III only"],
+    "answer": "I only",
+    "explanation": "In I, when i is 4, fruits[4] is out of bounds (valid indices 0-3). II and III stay within bounds.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "Which can replace /* missing code */ so that the code segment sets numbers to {10, 20, 30, 40}?",
+    "code": "int[] numbers = new int[4];\n/* missing code */",
+    "options": [
+      "int x=10; for (int value : numbers) { value = x; x += 10; }",
+      "for (int j=0; j<numbers.length; j++) numbers[j] = j * 10;",
+      "numbers[0]=10; for (int j=0; j<numbers.length; j++) numbers[j] = numbers[j]+10;",
+      "numbers[3]=40; for (int j=numbers.length-1; j>0; j--) numbers[j-1] = numbers[j] - 10;"
+    ],
+    "answer": "numbers[3]=40; for (int j=numbers.length-1; j>0; j--) numbers[j-1] = numbers[j] - 10;",
+    "explanation": "Setting numbers[3]=40 then going backwards: numbers[2]=40-10=30, numbers[1]=30-10=20, numbers[0]=20-10=10. Result: {10, 20, 30, 40}.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "What will be the contents of newVals after executing the code segment?",
+    "code": "boolean[] oldVals = {true, false, true, true};\nboolean[] newVals = new boolean[4];\nfor (int j = oldVals.length - 1; j >= 0; j--)\n  newVals[j] = !(oldVals[j]);",
+    "options": ["{true, false, true, true}", "{false, true, false, false}", "{false, false, true, false}", "The code does not compile."],
+    "answer": "{false, true, false, false}",
+    "explanation": "Each element of newVals is the negation of the corresponding element of oldVals. So newVals = {false, true, false, false}.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "What are the contents of nums after executing the code segment?",
+    "code": "int[] nums = {5, 10, 15, 20, 25, 30};\nfor (int k = 0; k < nums.length - 1; k += 2)\n  nums[k] = nums[k + 1];",
+    "options": ["{5, 5, 15, 15, 25, 25}", "{10, 10, 20, 20, 25, 30}", "{10, 10, 20, 20, 30, 30}", "{10, 15, 20, 25, 30, 30}"],
+    "answer": "{10, 10, 20, 20, 30, 30}",
+    "explanation": "k is 0, 2, 4. So nums[0]=nums[1]=10, nums[2]=nums[3]=20, nums[4]=nums[5]=30. Indices 1, 3, 5 are unchanged.",
+    "topic": "Arrays"
+  },
+  {
+    "question": "What, if anything, is printed as a result of executing the code segment?",
+    "code": "int[] arr = {3, 1, 0, 4, 2};\nfor (int j = 0; j < arr.length; j++)\n  System.out.print(arr[j] + j + \" \");",
+    "options": ["3 1 0 4 2", "3 2 2 7 6", "6 2 0 8 4", "ArrayIndexOutOfBoundsException is thrown."],
+    "answer": "3 2 2 7 6",
+    "explanation": "For each j, arr[j]+j is printed: 3+0=3, 1+1=2, 0+2=2, 4+3=7, 2+4=6. So the output is 3 2 2 7 6.",
+    "topic": "Arrays"
+  }
+]

@@ -1,0 +1,279 @@
+/* AP CSA Practice Portal – dark theme */
+
+:root {
+  --bg: #1a1b26;
+  --bg-card: #24283b;
+  --bg-code: #16161e;
+  --text: #c0caf5;
+  --text-muted: #565f89;
+  --accent: #7aa2f7;
+  --correct: #9ece6a;
+  --incorrect: #f7768e;
+  --border: #3b4261;
+  --radius: 8px;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.score-display {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.score-sep {
+  margin: 0 0.2em;
+}
+
+.main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-muted);
+}
+
+.quiz.hidden,
+.complete.hidden,
+.feedback.hidden,
+.btn.hidden {
+  display: none !important;
+}
+
+.question-number {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.question-block {
+  margin-bottom: 1.5rem;
+}
+
+.question-text {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+}
+
+.code-block {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  background: var(--bg-code);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.code-block:empty,
+.code-block:not(:has(code:not(:empty))) {
+  display: none;
+}
+
+.code-block code {
+  background: none;
+  padding: 0;
+}
+
+.answer-form .choices {
+  margin: 0 0 1.5rem;
+  padding: 0;
+  border: none;
+}
+
+.choice {
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.choice:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: rgba(122, 162, 247, 0.08);
+}
+
+.choice:disabled {
+  cursor: default;
+  opacity: 0.9;
+}
+
+.choice.selected {
+  border-color: var(--accent);
+  background: rgba(122, 162, 247, 0.12);
+}
+
+.choice.correct {
+  border-color: var(--correct);
+  background: rgba(158, 206, 106, 0.12);
+}
+
+.choice.incorrect {
+  border-color: var(--incorrect);
+  background: rgba(247, 118, 142, 0.12);
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 0.6rem 1.25rem;
+  border: none;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text);
+  border: 2px solid var(--border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.feedback {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border-left: 4px solid var(--accent);
+}
+
+.feedback.correct {
+  border-left-color: var(--correct);
+}
+
+.feedback.incorrect {
+  border-left-color: var(--incorrect);
+}
+
+.feedback-message {
+  margin: 0 0 0.75rem;
+  font-weight: 600;
+}
+
+.feedback.correct .feedback-message {
+  color: var(--correct);
+}
+
+.feedback.incorrect .feedback-message {
+  color: var(--incorrect);
+}
+
+.explanation {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.explanation strong {
+  color: var(--text);
+}
+
+.explanation p {
+  margin: 0.25rem 0 0;
+}
+
+.complete {
+  text-align: center;
+  padding: 2rem;
+}
+
+.complete h2 {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  color: var(--text);
+}
+
+.final-score {
+  margin: 0 0 1.5rem;
+  font-size: 1.25rem;
+  color: var(--accent);
+}
+
+@media (prefers-color-scheme: light) {
+  /* Keep dark theme as requested; remove if you ever want a light option */
+}
+
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .main {
+    padding: 1rem;
+  }
+}
