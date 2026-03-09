@@ -2,7 +2,7 @@
 
 A static website for students to practice AP Computer Science A multiple choice questions. Runs entirely in the browser—no server required. Designed to host on [GitHub Pages](https://pages.github.com/).
 
-**Live site:** [https://jncomeau-lgtm.github.io/apcsa-practice](https://jncomeau-lgtm.github.io/apcsa-practice)
+**Live site:** [https://biggyclops.github.io/apcsa-practice](https://biggyclops.github.io/apcsa-practice)
 
 ![AP CSA Practice Portal](apcsa-practice-portal.png)
 
