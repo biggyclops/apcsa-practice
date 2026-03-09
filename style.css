@@ -68,8 +68,151 @@ body {
 .quiz.hidden,
 .complete.hidden,
 .feedback.hidden,
-.btn.hidden {
+.btn.hidden,
+.name-overlay.hidden,
+.student-panel.hidden,
+.leaderboard-section.hidden,
+.milestone-banner.hidden {
   display: none !important;
+}
+
+/* Name entry overlay */
+.name-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.name-overlay-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  max-width: 320px;
+  width: 90%;
+}
+
+.name-overlay-box label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.name-input {
+  display: block;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+}
+
+.name-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* Student status panel */
+.student-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.5rem 1rem;
+}
+
+.student-panel-row {
+  font-size: 0.9rem;
+}
+
+.student-panel-label {
+  color: var(--text-muted);
+  margin-right: 0.35em;
+}
+
+/* Streak milestone banner */
+.milestone-banner {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  padding: 0.75rem 1.25rem;
+  background: var(--bg-card);
+  border: 2px solid var(--correct);
+  border-radius: var(--radius);
+  font-weight: 600;
+  color: var(--correct);
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.milestone-banner.milestone-show {
+  opacity: 1;
+}
+
+.milestone-banner.milestone-fade {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* Class leaderboard */
+.leaderboard-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.leaderboard-title {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  color: var(--text);
+}
+
+.leaderboard-wrap {
+  overflow-x: auto;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.leaderboard-table th {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.leaderboard-table tbody tr:hover {
+  background: rgba(122, 162, 247, 0.06);
+}
+
+.leaderboard-table tbody tr.leaderboard-current {
+  background: rgba(122, 162, 247, 0.12);
+  font-weight: 500;
 }
 
 .question-number {

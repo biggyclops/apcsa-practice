@@ -18,11 +18,47 @@
   </header>
 
   <main class="main">
+    <div id="nameOverlay" class="name-overlay hidden">
+      <div class="name-overlay-box">
+        <label for="nameInput">Enter your name to start</label>
+        <input type="text" id="nameInput" class="name-input" placeholder="Your name" autocomplete="name" maxlength="64" />
+        <button type="button" id="nameSubmit" class="btn btn-primary">Start</button>
+      </div>
+    </div>
+
+    <div id="milestoneBanner" class="milestone-banner hidden" aria-live="polite"></div>
+
     <div id="loading" class="loading">
       <p>Loading questions…</p>
     </div>
 
     <div id="quiz" class="quiz hidden">
+      <div id="studentPanel" class="student-panel hidden">
+        <div class="student-panel-row">
+          <span class="student-panel-label">Student:</span>
+          <span id="studentName">—</span>
+        </div>
+        <div class="student-panel-row">
+          <span class="student-panel-label">Questions Completed:</span>
+          <span id="studentCompleted">0</span>
+        </div>
+        <div class="student-panel-row">
+          <span class="student-panel-label">Accuracy:</span>
+          <span id="studentAccuracy">0%</span>
+        </div>
+        <div class="student-panel-row">
+          <span class="student-panel-label">Session Questions:</span>
+          <span id="sessionCount">0</span>
+        </div>
+        <div class="student-panel-row">
+          <span class="student-panel-label">🔥 Current Streak:</span>
+          <span id="studentStreak">0</span>
+        </div>
+        <div class="student-panel-row">
+          <span class="student-panel-label">🏆 Best Streak:</span>
+          <span id="studentBestStreak">0</span>
+        </div>
+      </div>
       <div class="question-number" id="questionNumber"></div>
 
       <div class="question-block">
@@ -54,8 +90,30 @@
       <p class="final-score" id="finalScore"></p>
       <button type="button" id="restartBtn" class="btn btn-primary">Try Again</button>
     </div>
+
+    <section id="leaderboardSection" class="leaderboard-section hidden">
+      <h2 class="leaderboard-title">Class Leaderboard</h2>
+      <div class="leaderboard-wrap">
+        <table class="leaderboard-table" aria-label="Class leaderboard">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Student Name</th>
+              <th>Questions Completed</th>
+              <th>Accuracy %</th>
+              <th>Current Streak</th>
+              <th>Best Streak</th>
+              <th>Started</th>
+              <th>Last Activity</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardTableBody"></tbody>
+        </table>
+      </div>
+    </section>
   </main>
 
+  <script src="leaderboard.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

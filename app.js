@@ -136,6 +136,9 @@
     if (correct) state.score++;
     updateScoreDisplay();
     showFeedback(correct, q.explanation);
+    if (window.Leaderboard && typeof window.Leaderboard.recordAnswer === 'function') {
+      window.Leaderboard.recordAnswer(correct);
+    }
   }
 
   function handleNext() {
@@ -171,8 +174,16 @@
         state.index = 0;
         state.score = 0;
         updateScoreDisplay();
-        renderQuestion();
-        showScreen('quiz');
+        if (window.Leaderboard && typeof window.Leaderboard.init === 'function') {
+          el.loading.classList.add('hidden');
+          window.Leaderboard.init(function () {
+            renderQuestion();
+            showScreen('quiz');
+          });
+        } else {
+          renderQuestion();
+          showScreen('quiz');
+        }
       })
       .catch(function (err) {
         el.loading.textContent = 'Error loading questions: ' + err.message;
