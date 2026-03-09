@@ -33,6 +33,15 @@
     </div>
 
     <div id="quiz" class="quiz hidden">
+      <div class="mode-actions">
+        <button type="button" id="practiceMistakesBtn" class="btn btn-secondary">Practice Mistakes Only</button>
+        <div id="replayBanner" class="replay-banner hidden">
+          <span class="replay-banner-text">Mistake Replay Mode — leaderboard stats are not affected.</span>
+          <span id="mistakesRemaining" class="mistakes-remaining"></span>
+          <button type="button" id="returnNormalBtn" class="btn btn-secondary">Return to Normal Practice</button>
+        </div>
+        <div id="allMistakesCleared" class="all-mistakes-cleared hidden">All mistakes cleared. Great work.</div>
+      </div>
       <div id="studentPanel" class="student-panel hidden">
         <div class="student-panel-row">
           <span class="student-panel-label">Student:</span>

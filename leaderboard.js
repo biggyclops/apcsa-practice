@@ -18,10 +18,18 @@
 
   const el = {};
 
+  function ensureWrongQuestions(student) {
+    if (!student) return student;
+    if (!Array.isArray(student.wrongQuestions)) student.wrongQuestions = [];
+    return student;
+  }
+
   function getLeaderboard() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : [];
+      const board = raw ? JSON.parse(raw) : [];
+      board.forEach(ensureWrongQuestions);
+      return board;
     } catch (e) {
       return [];
     }
@@ -43,7 +51,8 @@
       streak: 0,
       bestStreak: 0,
       firstActivity: now,
-      lastAnswered: now
+      lastAnswered: now,
+      wrongQuestions: []
     };
   }
 
@@ -54,8 +63,8 @@
       return s.name.toLowerCase() === trimmed.toLowerCase();
     });
     if (existing) {
-      currentStudent = existing;
-      return existing;
+      currentStudent = ensureWrongQuestions(existing);
+      return currentStudent;
     }
     const student = createStudent(trimmed);
     board.push(student);
@@ -64,7 +73,19 @@
     return student;
   }
 
-  function updateStudentOnAnswer(correct) {
+  function updateWrongQuestions(questionId, correct) {
+    if (!currentStudent || !questionId) return;
+    const wq = currentStudent.wrongQuestions;
+    if (!Array.isArray(wq)) currentStudent.wrongQuestions = [];
+    const idx = currentStudent.wrongQuestions.indexOf(questionId);
+    if (correct) {
+      if (idx !== -1) currentStudent.wrongQuestions.splice(idx, 1);
+    } else {
+      if (idx === -1) currentStudent.wrongQuestions.push(questionId);
+    }
+  }
+
+  function updateStudentOnAnswer(correct, questionId) {
     if (!currentStudent) return;
     const s = currentStudent;
     s.questionsCompleted += 1;
@@ -72,16 +93,18 @@
       s.correctAnswers += 1;
       s.streak += 1;
       if (s.streak > s.bestStreak) s.bestStreak = s.streak;
+      updateWrongQuestions(questionId, true);
     } else {
       s.streak = 0;
+      updateWrongQuestions(questionId, false);
     }
     s.lastAnswered = new Date().toISOString();
     s.accuracy = s.questionsCompleted > 0
       ? Math.round((s.correctAnswers / s.questionsCompleted) * 100)
       : 0;
     const board = getLeaderboard();
-    const idx = board.findIndex(function (x) { return x.name === s.name; });
-    if (idx !== -1) board[idx] = s;
+    const i = board.findIndex(function (x) { return x.name === s.name; });
+    if (i !== -1) board[i] = s;
     else board.push(s);
     saveLeaderboard(board);
   }
@@ -207,12 +230,28 @@
     });
   }
 
-  function recordAnswer(correct) {
+  function recordAnswer(correct, questionId, isReplayMode) {
     if (!currentStudent) return;
-    updateStudentOnAnswer(correct);
+    if (isReplayMode) {
+      if (correct) {
+        updateWrongQuestions(questionId, true);
+        const board = getLeaderboard();
+        const i = board.findIndex(function (x) { return x.name === currentStudent.name; });
+        if (i !== -1) board[i] = currentStudent;
+        saveLeaderboard(board);
+      }
+      refreshLeaderboard();
+      return;
+    }
+    updateStudentOnAnswer(correct, questionId);
     incrementSessionCount();
     refreshLeaderboard();
     if (correct) showStreakMilestone(currentStudent.streak);
+  }
+
+  function getWrongQuestionIds() {
+    if (!currentStudent || !Array.isArray(currentStudent.wrongQuestions)) return [];
+    return currentStudent.wrongQuestions.slice();
   }
 
   function getCurrentStudent() {
@@ -244,6 +283,7 @@
     recordAnswer: recordAnswer,
     getCurrentStudent: getCurrentStudent,
     getSessionCount: getSessionCount,
+    getWrongQuestionIds: getWrongQuestionIds,
     refreshLeaderboard: refreshLeaderboard,
     incrementSessionCount: incrementSessionCount
   };

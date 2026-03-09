@@ -6,7 +6,10 @@
     order: [],
     index: 0,
     score: 0,
-    answered: false
+    answered: false,
+    replayMode: false,
+    replayQuestions: [],
+    replayOrder: []
   };
 
   const el = {
@@ -27,7 +30,12 @@
     scoreEl: document.getElementById('score'),
     totalEl: document.getElementById('total'),
     finalScore: document.getElementById('finalScore'),
-    restartBtn: document.getElementById('restartBtn')
+    restartBtn: document.getElementById('restartBtn'),
+    practiceMistakesBtn: document.getElementById('practiceMistakesBtn'),
+    replayBanner: document.getElementById('replayBanner'),
+    mistakesRemaining: document.getElementById('mistakesRemaining'),
+    returnNormalBtn: document.getElementById('returnNormalBtn'),
+    allMistakesCleared: document.getElementById('allMistakesCleared')
   };
 
   function shuffle(array) {
@@ -48,10 +56,44 @@
     if (screen === 'complete') el.complete.classList.remove('hidden');
   }
 
+  function getCurrentQuestion() {
+    if (state.replayMode && state.replayQuestions.length > 0) {
+      return state.replayQuestions[state.replayOrder[state.index]];
+    }
+    return state.questions[state.order[state.index]];
+  }
+
+  function getCurrentTotal() {
+    if (state.replayMode) return state.replayQuestions.length;
+    return state.questions.length;
+  }
+
+  function updateReplayUI() {
+    if (!el.replayBanner || !el.mistakesRemaining || !el.allMistakesCleared) return;
+    if (!state.replayMode) {
+      el.replayBanner.classList.add('hidden');
+      el.allMistakesCleared.classList.add('hidden');
+      if (el.practiceMistakesBtn) el.practiceMistakesBtn.classList.remove('hidden');
+      return;
+    }
+    el.practiceMistakesBtn.classList.add('hidden');
+    const remaining = window.Leaderboard && window.Leaderboard.getWrongQuestionIds ? window.Leaderboard.getWrongQuestionIds().length : 0;
+    el.mistakesRemaining.textContent = 'Mistakes Remaining: ' + remaining;
+    if (remaining === 0) {
+      el.replayBanner.classList.add('hidden');
+      el.allMistakesCleared.classList.remove('hidden');
+      el.allMistakesCleared.textContent = 'All mistakes cleared. Great work.';
+    } else {
+      el.replayBanner.classList.remove('hidden');
+      el.allMistakesCleared.classList.add('hidden');
+    }
+  }
+
   function renderQuestion() {
-    const q = state.questions[state.order[state.index]];
+    const q = getCurrentQuestion();
+    if (!q) return;
     const num = state.index + 1;
-    const total = state.questions.length;
+    const total = getCurrentTotal();
 
     el.questionNumber.textContent = 'Question ' + num + ' of ' + total;
     el.questionText.textContent = q.question;
@@ -88,6 +130,7 @@
     el.nextBtn.classList.add('hidden');
     el.feedback.classList.add('hidden');
     state.answered = false;
+    if (state.replayMode) updateReplayUI();
   }
 
   function updateScoreDisplay() {
@@ -97,7 +140,7 @@
 
   function showFeedback(correct, explanation) {
     state.answered = true;
-    const q = state.questions[state.order[state.index]];
+    const q = getCurrentQuestion();
     const correctIndex = (q.options || []).indexOf(q.answer);
     const labels = el.choices.querySelectorAll('label');
     labels.forEach((label, i) => {
@@ -116,8 +159,15 @@
 
   function nextOrComplete() {
     state.index++;
-    if (state.index >= state.questions.length) {
-      el.finalScore.textContent = 'You got ' + state.score + ' out of ' + state.questions.length + ' correct.';
+    const total = getCurrentTotal();
+    if (state.index >= total) {
+      if (state.replayMode && total > 0) {
+        el.finalScore.textContent = 'Replay session complete. You went through all ' + total + ' mistake question(s).';
+      } else if (state.replayMode && total === 0) {
+        el.finalScore.textContent = 'All mistakes cleared. Great work!';
+      } else {
+        el.finalScore.textContent = 'You got ' + state.score + ' out of ' + state.questions.length + ' correct.';
+      }
       showScreen('complete');
     } else {
       renderQuestion();
@@ -129,27 +179,71 @@
     if (state.answered) return;
     const selected = el.answerForm.querySelector('input[name="answer"]:checked');
     if (!selected) return;
-    const q = state.questions[state.order[state.index]];
+    const q = getCurrentQuestion();
     const choiceIndex = parseInt(selected.value, 10);
     const correctIndex = (q.options || []).indexOf(q.answer);
     const correct = choiceIndex === correctIndex;
-    if (correct) state.score++;
+    if (!state.replayMode && correct) state.score++;
     updateScoreDisplay();
     showFeedback(correct, q.explanation);
     if (window.Leaderboard && typeof window.Leaderboard.recordAnswer === 'function') {
-      window.Leaderboard.recordAnswer(correct);
+      window.Leaderboard.recordAnswer(correct, q.id, state.replayMode);
     }
+    if (state.replayMode) updateReplayUI();
   }
 
   function handleNext() {
     nextOrComplete();
   }
 
+  function enterReplayMode() {
+    const wrongIds = window.Leaderboard && window.Leaderboard.getWrongQuestionIds ? window.Leaderboard.getWrongQuestionIds() : [];
+    if (wrongIds.length === 0) {
+      if (el.allMistakesCleared) {
+        el.allMistakesCleared.classList.remove('hidden');
+        el.allMistakesCleared.textContent = 'No mistakes to replay. Great work!';
+        el.replayBanner.classList.add('hidden');
+        el.practiceMistakesBtn.classList.add('hidden');
+        setTimeout(function () {
+          el.allMistakesCleared.classList.add('hidden');
+          el.practiceMistakesBtn.classList.remove('hidden');
+        }, 3000);
+      }
+      return;
+    }
+    state.replayMode = true;
+    state.replayQuestions = state.questions.filter(function (q) { return wrongIds.indexOf(q.id) !== -1; });
+    state.replayOrder = shuffle(state.replayQuestions.map(function (_, i) { return i; }));
+    state.index = 0;
+    state.score = 0;
+    updateScoreDisplay();
+    updateReplayUI();
+    renderQuestion();
+    showScreen('quiz');
+  }
+
+  function exitReplayMode() {
+    state.replayMode = false;
+    state.replayQuestions = [];
+    state.replayOrder = [];
+    state.index = 0;
+    state.score = 0;
+    state.order = shuffle(state.questions.map(function (_, i) { return i; }));
+    updateScoreDisplay();
+    updateReplayUI();
+    renderQuestion();
+    showScreen('quiz');
+  }
+
   function handleRestart() {
+    state.replayMode = false;
+    state.replayQuestions = [];
+    state.replayOrder = [];
     state.index = 0;
     state.score = 0;
     state.order = shuffle(state.questions.map((_, i) => i));
     updateScoreDisplay();
+    updateReplayUI();
     renderQuestion();
     showScreen('quiz');
   }
@@ -158,6 +252,8 @@
     el.answerForm.addEventListener('submit', handleSubmit);
     el.nextBtn.addEventListener('click', handleNext);
     if (el.restartBtn) el.restartBtn.addEventListener('click', handleRestart);
+    if (el.practiceMistakesBtn) el.practiceMistakesBtn.addEventListener('click', enterReplayMode);
+    if (el.returnNormalBtn) el.returnNormalBtn.addEventListener('click', exitReplayMode);
 
     fetch('questions.json')
       .then(function (res) {
@@ -170,6 +266,9 @@
           el.loading.textContent = 'No questions found in questions.json.';
           return;
         }
+        state.questions.forEach(function (q, i) {
+          if (!q.id) q.id = 'q' + i;
+        });
         state.order = shuffle(state.questions.map((_, i) => i));
         state.index = 0;
         state.score = 0;

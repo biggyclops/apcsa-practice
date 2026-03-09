@@ -72,7 +72,9 @@ body {
 .name-overlay.hidden,
 .student-panel.hidden,
 .leaderboard-section.hidden,
-.milestone-banner.hidden {
+.milestone-banner.hidden,
+.replay-banner.hidden,
+.all-mistakes-cleared.hidden {
   display: none !important;
 }
 
@@ -119,6 +121,46 @@ body {
 .name-input:focus {
   outline: none;
   border-color: var(--accent);
+}
+
+/* Mode actions and replay */
+.mode-actions {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.replay-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(247, 118, 142, 0.1);
+  border: 1px solid var(--incorrect);
+  border-radius: var(--radius);
+  width: 100%;
+}
+
+.replay-banner-text {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.mistakes-remaining {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.all-mistakes-cleared {
+  padding: 0.75rem 1rem;
+  background: rgba(158, 206, 106, 0.12);
+  border: 1px solid var(--correct);
+  border-radius: var(--radius);
+  color: var(--correct);
+  font-weight: 500;
 }
 
 /* Student status panel */
